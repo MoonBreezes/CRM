@@ -33,7 +33,11 @@ jobs:
       - name: Create and start virtual environment
         run: |
           python -m venv venv
-          source venv/bin/activate
+          if [ "${{ runner.os }}" == "Windows" ]; then
+            .\venv\Scripts\activate
+          else
+            source venv/bin/activate
+          fi
       
       - name: Install dependencies
         run: pip install -r requirements.txt
