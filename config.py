@@ -19,3 +19,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + path.join(basedir, SQLITE_DB)
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    
+class TestingConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+    TESTING = True
