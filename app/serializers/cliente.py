@@ -8,14 +8,14 @@ class ClienteSchema(ma.SQLAlchemyAutoSchema):
         model = Cliente
         load_instance = True
 
-    CPF_CNPJ = fields.String(required=False, description="identificador de Cliente PF ou PJ")
-    nome = fields.String(required=True, description="Nome cliente")
-    email = fields.String(required=False, description="endereco de email")
-    telefone = fields.String(required=False,description="telefone")
-    whatsapp = fields.String(required=False,description="User's name")
-    celular = fields.String(required=False,description="User's name")
-    dataExlusao = fields.String(required=False, description="User's name")
-    dataNascimento = fields.String(required=False,description="User's name")
+    CPF_CNPJ = fields.String(required=False,metadata={"description":" identificador de Cliente PF ou PJ"})
+    nome = fields.String(required=True,metadata={"description":" Nome cliente"})
+    email = fields.String(required=False,metadata={"description":" endereco de email"})
+    telefone = fields.String(required=False,metadata={"description":" telefone"})
+    whatsapp = fields.String(required=False,metadata={"description":" User's name"})
+    celular = fields.String(required=False,metadata={"description":" User's name"})
+    dataExlusao = fields.String(required=False,metadata={"description":" User's name"})
+    dataNascimento = fields.String(required=False,metadata={"description":" User's name"})
 
     @validates('id')
     def validate_id(self, value):
