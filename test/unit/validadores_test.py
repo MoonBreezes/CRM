@@ -12,8 +12,8 @@ class TestValidarCPF(unittest.TestCase):
         self.assertTrue(resultado)
 
     def test_cpf_nulo(self):
-        cpfNulo = ""
-        resultado = validadores.validarCPF(cpfNulo)
+        cpfVazio = ""
+        resultado = validadores.validarCPF(cpfVazio)
         self.assertFalse(resultado) 
 
     def test_cpf_indefinido(self):
@@ -157,20 +157,20 @@ class TestValidarEmail(unittest.TestCase):
 class TestValidarEstado(unittest.TestCase):
     def test_estado_valido(self):
         estado_valido = 'MG'
-        self.assertTrue(validadores.validarEstado(estado_valido))  
+        self.assertTrue(validadores.validarSiglaUF(estado_valido))  
 
     
     def test_estado_indefinido(self):
         estado_indefinido = None
-        self.assertFalse(validadores.validarEstado(estado_indefinido)) 
+        self.assertFalse(validadores.validarSiglaUF(estado_indefinido)) 
 
     def test_estado_invalido(self):
         estado_invalido = 'ZZ'
-        self.assertFalse(validadores.validarEstado(estado_invalido))
+        self.assertFalse(validadores.validarSiglaUF(estado_invalido))
 
     def test_estado_nulo(self):
         estado_nulo = ""
-        self.assertFalse(validadores.validarEstado(estado_nulo))    
+        self.assertFalse(validadores.validarSiglaUF(estado_nulo))    
 
 class TestValidarNumero(unittest.TestCase):
     def test_numero_valido(self):
@@ -199,14 +199,39 @@ class Testdata(unittest.TestCase):
         dataValida = '2023-08-01'
         self.assertTrue(validadores.validarData(dataValida))  
 
-    
     def test_data_indefinida(self):
         dataIndefinida = None
         self.assertTrue(validadores.validarData(dataIndefinida))
 
     def test_data_nula(self):
         dataNula = ""
-        self.assertFalse(validadores.validarData(dataNula))     
+        self.assertFalse(validadores.validarData(dataNula))
+        
+class TestSiglasUF(unittest.TestCase):
+    def test_SiglaVazia(self):
+        siglaVazia = None
+        self.assertFalse(validadores.validarSiglaUF(siglaVazia))  
+
+    def test_SiglaEmbraco(self):
+        siglaVazia = ""
+        self.assertFalse(validadores.validarSiglaUF(siglaVazia))
+        
+    def test_SiglaApenasEspacoesEmbranco(self):
+        siglaApenasEspacoesEmbranco = " "
+        self.assertFalse(validadores.validarSiglaUF(siglaApenasEspacoesEmbranco))
+
+    def test_SiglaInvalida(self):
+        siglaInvalida = "GM"
+        self.assertFalse(validadores.validarSiglaUF(siglaInvalida))
+    
+    def test_SiglaMinuscula(self):
+        siglaMinuscula = "mg"
+        self.assertFalse(validadores.validarSiglaUF(siglaMinuscula))
+
+    def test_SiglaValida(self):
+        siglaValida = "MG"
+        self.assertTrue(validadores.validarSiglaUF(siglaValida))     
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -97,11 +97,11 @@ def validarData(data: str) -> bool:
   except ValueError:
       return False
   
-def validarEstado(estado: str) -> bool:
+def validarSiglaUF(estado: str) -> bool:
   if estado is None:
     return False
   estados = {'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'}
-  return estado.upper() in estados
+  return estado in estados
 
 def validarNumero(numero: str) -> bool:
   if numero is None:
