@@ -67,17 +67,3 @@ def test_ListarTodosClientes_BancoComVariosClientes(crm, init_db):
     assert len(data) == 10 
     assert data[0]['nome'] == 'test_user0'
     assert data[0]['email'] == 'test@example.com'
-
-
-def test_CadastrarClienteComCPFRepetido(crm, init_db):
-    
-
-    response = crm.get('/cliente/listarTodos')
-
-  
-    data = response.get_json()
-
-    assert response.status_code == 200
-    assert len(data) == 10 
-    assert data[0]['nome'] == 'test_user0'
-    assert data[0]['email'] == 'test@example.com'
