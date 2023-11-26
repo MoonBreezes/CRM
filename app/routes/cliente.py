@@ -106,7 +106,7 @@ def cadastrarCliente():
         telefone = telefone,
         whatsapp = whatsapp,
         celular = celular,
-        dataNascimento =  datetime.strptime(dataNascimento, "%Y-%m-%d")
+        dataNascimento =  datetime.strptime(dataNascimento, "%Y-%m-%d") if dataNascimento is not None else None
     )
 
     db.session.add(cliente_obj)
@@ -142,7 +142,6 @@ def atualizarCadastroCliente(id):
     
     resultado,mensagem = pipelineValidacoes.Executar(
         [
-            
             (validadores.validarCPF_CNPJ(CPF_CNPJ), "CPF ou CNPJ invalido."),
             (validadores.validarEmail(email), "Email Invalido"),
             (validadores.validarTelefoneFixo(telefone), "Telefone Fixo Invalido"),
