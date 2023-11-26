@@ -67,3 +67,51 @@ def test_ListarTodosClientes_BancoComVariosClientes(crm, init_db):
     assert len(data) == 10 
     assert data[0]['nome'] == 'test_user0'
     assert data[0]['email'] == 'test@example.com'
+    
+def test_CadastrarCliente(crm, init_db):
+    dadosCliente = {
+        "nome": "test_user",
+        "email": "test@example.com",
+        "CPF_CNPJ":'780.771.820-03',
+    }
+    response = crm.put('/cliente/cadastrar', json=dadosCliente)
+    
+    data = response.get_json()
+    assert "id" in data
+    assert isinstance(data["id"], int)
+    
+    clienteCriado =  models.Cliente.query.first()
+    assert clienteCriado is not None
+    assert clienteCriado.nome == dadosCliente["nome"]
+    assert clienteCriado.email == dadosCliente["email"] 
+
+
+
+def test_CadastrarClienteCPFRepetido(crm, init_db):
+    dadosClienteOriginal = {
+        "nome": "test_user",
+        "email": "test@example.com",
+        "CPF_CNPJ":'780.771.820-03',
+    }
+    dadosClienteCPFRepetido = {
+        "nome": "test_user_CPF_repetido",
+        "email": "test_CPF_repetido@example.com",
+        "CPF_CNPJ":'780.771.820-03',
+    }
+    response = crm.put('/cliente/cadastrar', json=dadosClienteOriginal)
+    responseCPFRepetido = crm.put('/cliente/cadastrar', json=dadosClienteCPFRepetido)
+    
+    assert responseCPFRepetido.status_code == 400
+    
+    data = responseCPFRepetido.get_json()
+    assert "message" in data
+    assert data["message"]["message"] == 'Bad request: Ja existe um usario com esse CPF/CNPJ'
+    assert data["message"]["success"] == False
+    
+    
+    
+    clientesCriados =  models.Cliente.query.all()
+    assert clientesCriados is not None
+    assert len(clientesCriados) == 1
+    assert clientesCriados[0].nome == dadosClienteOriginal["nome"]
+    assert clientesCriados[0].email == dadosClienteOriginal["email"] 
