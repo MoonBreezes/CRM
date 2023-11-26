@@ -65,6 +65,11 @@ jobs:
         with:
           name: python-app
           path: .
+        
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
           
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
