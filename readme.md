@@ -1,5 +1,5 @@
-[![GitHub Actions (Tests)](https://github.com/MoonBreezes/CRM/actions/workflows/master_messagemonitormoonbreezes.yml/badge.svg)](https://github.com/MoonBreezes/CRM/actions/workflows/master_messagemonitormoonbreezes.yml)
-
+[![GitHub Actions (Tests)](https://github.com/MoonBreezes/CRM/actions/workflows/master_CRM.yml/badge.svg)](https://github.com/MoonBreezes/CRM/actions/workflows/master_CRM.yml) 
+[![codecov](https://codecov.io/gh/MoonBreezes/CRM/settings/branch/master/graph/badge.svg?token=P7FUEKQZ8L)](https://codecov.io/gh/MoonBreezes/CRM/settings)
 
 # Sistema de controle de acesso com Interface Web e API REST
 ### 1. Nomes dos membros do grupo:
