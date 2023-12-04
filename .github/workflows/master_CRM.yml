@@ -1,7 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-# More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
-
 name: CRM
 
 on:
@@ -15,42 +11,23 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-
+        os: [ubuntu-latest, windows-latest, macos-latest ]
+        python-version: [ '3.11']
+   
     steps:
       - uses: actions/checkout@v2
-
-      - name: Set up Python version
-        uses: actions/setup-python@v1
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
         with:
-          python-version: '3.11'
-
-      - name: Install coverage.py and pytest
-        run: |
-            pip install coverage
-            pip install pytest
-      
-      - name: Create and start virtual environment
-        run: |
-          python -m venv venv
-          if [ "${{ runner.os }}" == "Windows" ]; then
-          .\venv\Scripts\activate
-          else
-            source venv/bin/activate
-          fi
-        
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
-        run: pip install -r requirements.txt
-        
-      - name: Run Tests with Coverage
         run: |
-          coverage run -m unittest discover -s test/unit -p '*_test.py'
-          coverage run -m pytest test/integration
-          # coverage run -m pytest test/system
-        
-      - name: Generate coverage report
-        run: coverage xml -o coverage.xml
-      
+          python -m pip install --upgrade pip
+          pip install tox tox-gh-actions
+
+      - name: Test with tox
+        run: tox
+
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v2
         with:
