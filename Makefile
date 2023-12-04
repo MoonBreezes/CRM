@@ -8,6 +8,8 @@ lizard:
 
 test: FORCE
 	python -m unittest discover -s test/unit -p '*_test.py'
+pytest:
+	pytest
 
 FORCE:
 
