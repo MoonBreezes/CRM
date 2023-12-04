@@ -8,13 +8,11 @@ lizard:
 
 test: FORCE
 	python -m unittest discover -s test/unit -p '*_test.py'
-pytest:
-	pytest
 
 FORCE:
 
 
-tag=engsoft:latest
+tag=lcharles060/engsoft:latest
 
 dedit:
 	nano Dockerfile
@@ -24,6 +22,10 @@ dbuild:
 
 drun:
 	docker run -p 5000:5000 -it $(tag)
+
+# do docker login on a repository to push
+dpush:
+	docker push $(tag)
 
 help:
 	cat Makefile
