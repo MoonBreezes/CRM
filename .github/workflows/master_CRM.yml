@@ -3,7 +3,7 @@ name: CRM
 on:
   push:
     branches:
-      - master
+      - desabilitado
   workflow_dispatch:
 
 jobs:
